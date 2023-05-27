@@ -1,10 +1,17 @@
 <script>
-  import { toggle } from "$lib/stores";
+  import { onMount } from "svelte";
+  import { toggle, list } from "$lib/stores";
   import Button from "$lib/elements/Button.svelte";
   import ModalUser from "./ModalUser.svelte";
   import TableBottom from "./TableBottom.svelte";
   import TableTop from "./TableTop.svelte";
   import TableView from "./TableView.svelte";
+
+  let collection = "users";
+
+  onMount(() => {
+    list.get($list, collection, {});
+  });
 </script>
 
 <h1>Users</h1>
@@ -13,7 +20,7 @@
   <Button on:click={() => toggle.open("form-tambah-user")}>&plus; Tambah</Button
   >
   <TableTop />
-  <TableView />
+  <TableView loading={$list?.[collection]?.loading} />
   <TableBottom />
 </main>
 

@@ -19,3 +19,25 @@ const toggleStore = () => {
   };
 };
 export const toggle = toggleStore();
+// ////////
+
+const listStore = () => {
+  const { subscribe, set, update } = writable({});
+  return {
+    subscribe,
+    get: async (old, name, option) => {
+      set({ ...old, [name]: { loading: true } });
+
+      // let url = ''
+      // const res = await fetch(url)
+      // const respon = await res.json()
+
+      await new Promise((resolve) => setTimeout(() => resolve(), 3000));
+      let data = [];
+      set({ ...old, [name]: { loading: false, data } });
+    },
+
+    getMore: async (old, name, option) => {},
+  };
+};
+export const list = listStore();
