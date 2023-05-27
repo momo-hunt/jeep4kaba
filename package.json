@@ -1,19 +1,22 @@
 {
-	"name": "jeep4",
-	"version": "0.0.1",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"package": "svelte-kit package",
-		"preview": "vite preview"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.1.0",
-		"@sveltejs/kit": "^1.19.0",
-		"@types/bcrypt": "^5.0.0",
-		"bcrypt": "^5.1.0",
-		"svelte": "^3.59.1",
-		"vite": "^4.3.8"
-	},
-	"type": "module"
+  "name": "jeep4",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "package": "svelte-kit package",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^2.1.0",
+    "@sveltejs/kit": "^1.19.0",
+    "@types/bcrypt": "^5.0.0",
+    "bcrypt": "^5.1.0",
+    "svelte": "^3.59.1",
+    "vite": "^4.3.8"
+  },
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/momo-hunt/jeep4kaba.git"
+  }
 }
