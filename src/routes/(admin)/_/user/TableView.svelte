@@ -25,7 +25,7 @@
             <td>{d?.username ?? "test"}</td>
             <td>{d?.role ?? "test"}</td>
             <td>{d?.created_at ?? "test"}</td>
-            <td>
+            <td class="action">
               <button class="warning">Ubah</button>
               <button class="danger">Hapus</button>
             </td>
@@ -39,6 +39,11 @@
 <style>
   section {
     overflow-x: auto;
+  }
+
+  .action {
+    display: flex;
+    gap: 0.5rem;
   }
 
   table {
