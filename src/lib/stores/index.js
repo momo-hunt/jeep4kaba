@@ -28,13 +28,15 @@ const listStore = () => {
     get: async (old, name, option) => {
       set({ ...old, [name]: { loading: true } });
 
-      // let url = ''
-      // const res = await fetch(url)
-      // const respon = await res.json()
+      let url = "/api/" + name + "?option=" + JSON.stringify(option);
 
-      await new Promise((resolve) => setTimeout(() => resolve(), 3000));
-      let data = [];
-      set({ ...old, [name]: { loading: false, data } });
+      // await new Promise((resolve) => setTimeout(() => resolve(), 3000));
+      const res = await fetch(url);
+      const respon = await res.json();
+      // console.log(respon);
+
+      // let more =
+      set({ ...old, [name]: { loading: false, ...respon } });
     },
 
     getMore: async (old, name, option) => {},
