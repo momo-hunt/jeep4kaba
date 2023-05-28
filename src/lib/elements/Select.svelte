@@ -1,8 +1,7 @@
 <script>
   export let name;
+  export let option = [];
   export let label = undefined;
-  export let type = "text";
-  export let placeholder = null;
   export let value = null;
   export let required = undefined;
   export let readonly = undefined;
@@ -13,16 +12,11 @@
   {#if label}
     <label for={name}>{label}</label>
   {/if}
-  <input
-    {type}
-    {name}
-    id={name}
-    {placeholder}
-    {value}
-    {required}
-    {readonly}
-    {disabled}
-  />
+  <select {name} id={name} {value} {required} {readonly} {disabled}>
+    {#each option as { value, label }}
+      <option {value}>{label}</option>
+    {/each}
+  </select>
 </div>
 
 <style>
@@ -30,7 +24,7 @@
     font-size: 0.9rem;
   }
 
-  input {
+  select {
     background: none;
     outline: none;
     border: none;
@@ -43,7 +37,7 @@
     border-radius: 4px;
   }
 
-  input:focus {
+  select:focus {
     outline: 2px solid hsl(216, 25%, 70%);
   }
 </style>

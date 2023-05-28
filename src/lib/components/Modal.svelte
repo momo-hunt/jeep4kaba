@@ -1,10 +1,10 @@
 <script>
-  import { toggle } from "$lib/stores";
+  import { modal } from "$lib/stores";
   export let name;
 </script>
 
 <section>
-  <button class="backdrop" on:click={() => toggle.close(name)} />
+  <button class="backdrop" on:click={() => modal.close(name)} />
   <article>
     <slot />
   </article>

@@ -1,29 +1,51 @@
 <script>
   import { onMount } from "svelte";
-  import { toggle, list } from "$lib/stores";
+  import { modal, list } from "$lib/stores";
   import Button from "$lib/elements/Button.svelte";
-  import ModalUser from "./ModalUser.svelte";
   import Table from "$lib/components/Table.svelte";
+
+  export let data;
+
+  let fieldsForm = [
+    { label: "Username", type: "text", name: "username" },
+    {
+      label: "Role",
+      type: "select",
+      name: "role",
+      option: [
+        { value: 1, label: "Admin" },
+        { value: 2, label: "Sopir" },
+        { value: 3, label: "Public" },
+      ],
+    },
+    { label: "Password", type: "password", name: "password" },
+    { label: "Confirm Password", type: "password", name: "confirmPassword" },
+  ];
 
   let collection = "users";
 
   onMount(() => {
-    list.get($list, collection, { limit: 10, page: 1 });
+    list.get($list, collection, {
+      limit: data?.limit ?? 10,
+      page: data?.page ?? 1,
+    });
   });
 </script>
 
 <h1>Users</h1>
 
 <main>
-  <Button on:click={() => toggle.open("form-tambah-user")}>&plus; Tambah</Button
+  <Button
+    on:click={() =>
+      modal.open(
+        "Tambah User",
+        "form",
+        { action: "/login?/add", title: "tambah" },
+        { fields: fieldsForm, collection }
+      )}>&plus; Tambah</Button
   >
-  <Table
-    collections={$list?.[collection]}
-    heads={["Username", "Role", "Action"]}
-  />
+  <Table heads={["No", "Username", "Role", "Action"]} {collection} />
 </main>
-
-<ModalUser action="/login?/create" name="form-tambah-user" title="Tambah" />
 
 <style>
   main {

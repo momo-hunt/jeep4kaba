@@ -16,7 +16,7 @@
     loading = true;
     return async ({ result }) => {
       loading = false;
-      console.log("result data form, ", result.data);
+      console.log("result data form -> ", result.data);
       if (result.status == 200) return dispatch("success", result.data);
       return dispatch("error", result.data);
     };

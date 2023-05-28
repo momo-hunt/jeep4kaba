@@ -14,5 +14,6 @@
     border: 1px solid hsl(216, 25%, 90%);
     height: 2rem;
     padding: 0 0.5rem;
+    border-radius: 4px;
   }
 </style>

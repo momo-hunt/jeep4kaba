@@ -1,11 +1,26 @@
 <script>
+  import { list } from "$lib/stores";
+
+  import { goto } from "$app/navigation";
   import TableLoading from "$lib/load/TableLoading.svelte";
 
   export let heads;
-  export let collections = {};
+  export let collection;
+  $: collections = $list?.[collection];
 
   function lowerCase(t) {
     return !t ? null : t.toString().toLocaleLowerCase();
+  }
+
+  function changePage(t) {
+    t = { ...t, limit: collections?.limit };
+    let params = new URLSearchParams(t);
+    goto("?" + params);
+
+    list.get($list, collection, {
+      limit: collections?.limit,
+      page: t.page,
+    });
   }
 </script>
 
@@ -18,11 +33,9 @@
     <div>
       <small
         >Show :
-        <strong>
-          {collections?.limit > collections?.total
-            ? collections?.total
-            : collections?.limit} / {collections?.total}
-        </strong>
+        {collections?.data[0].no}
+        - {collections?.data[collections?.data.length - 1].no}
+        / {collections?.total}
       </small>
 
       <select name="limit" id="limit" value={collections?.limit}>
@@ -62,17 +75,31 @@
 
   <section class="pagenation">
     <div class="row">
-      <button disabled={collections?.page == 1}>&laquo;</button>
-      <button disabled={collections?.page >= 1}>&lsaquo;</button>
+      <button
+        disabled={collections?.page == 1}
+        on:click={() => changePage({ page: 1 })}>&laquo;</button
+      >
+      <button
+        disabled={collections?.page - 1 <= 0}
+        on:click={() => changePage({ page: collections?.page - 1 })}
+        >&lsaquo;</button
+      >
 
-      {#each collections?.pagenations as n}
-        <button class:active={collections?.page == n}>{n}</button>
+      {#each collections?.pagenation as n}
+        <button
+          class:active={collections?.page == n}
+          on:click={() => changePage({ page: n })}>{n}</button
+        >
       {/each}
 
-      <button disabled={collections?.page <= collections?.totalPage}
+      <button
+        disabled={collections?.page + 1 > collections?.totalPage}
+        on:click={() => changePage({ page: collections?.page + 1 })}
         >&rsaquo;</button
       >
-      <button disabled={collections?.page <= collections?.totalPage}
+      <button
+        disabled={collections?.page == collections?.totalPage}
+        on:click={() => changePage({ page: collections?.totalPage })}
         >&raquo;</button
       >
     </div>

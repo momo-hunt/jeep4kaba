@@ -27,6 +27,11 @@ class DB {
     return await this.fetchData();
   };
 
+  create = async (body) => {
+    this.req = { ...this.req, method: "create", body };
+    return await this.fetchData();
+  };
+
   collection = (collection) => {
     this.req = { ...this.req, collection };
     return this;
