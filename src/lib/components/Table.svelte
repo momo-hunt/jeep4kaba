@@ -38,7 +38,7 @@
         / {collections?.total}
       </small>
 
-      <select name="limit" id="limit" value={collections?.limit}>
+      <select name="limit" id="limit" value={Number(collections?.limit)}>
         {#each [5, 10, 20, 50, 100] as n}
           <option value={n}>{n}</option>
         {/each}
@@ -50,29 +50,30 @@
     </div>
   </section>
 
-  <table>
-    <thead>
-      <tr>
-        {#each heads as h}
-          <th>{h}</th>
-        {/each}
-      </tr>
-    </thead>
-    <tbody>
-      {#each collections?.data as d}
+  <div class="table">
+    <table>
+      <thead>
         <tr>
           {#each heads as h}
-            {#if h == "Action"}
-              <td class="row"><button>Ubah</button><button>Hapus</button></td>
-            {:else}
-              <td>{d[lowerCase(h)]}</td>
-            {/if}
+            <th>{h}</th>
           {/each}
         </tr>
-      {/each}
-    </tbody>
-  </table>
-
+      </thead>
+      <tbody>
+        {#each collections?.data as d}
+          <tr>
+            {#each heads as h}
+              {#if h == "Action"}
+                <td class="row"><button>Ubah</button><button>Hapus</button></td>
+              {:else}
+                <td>{d[lowerCase(h)]}</td>
+              {/if}
+            {/each}
+          </tr>
+        {/each}
+      </tbody>
+    </table>
+  </div>
   <section class="pagenation">
     <div class="row">
       <button
@@ -107,6 +108,10 @@
 {/if}
 
 <style>
+  .table {
+    overflow-x: auto;
+  }
+
   table {
     background: white;
     width: 100%;
